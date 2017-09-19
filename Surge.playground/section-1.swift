@@ -1,6 +1,6 @@
 import Foundation
 import Surge
-import PlaygroundSupport
+import XCPlayground
 
 // MARK: - Arithmetic
 
@@ -23,16 +23,18 @@ let B = inv(A) * C
 
 // MARK: - FFT
 
+func plot<T>(values: [T], title: String) {
+    for value in values {
+        XCPlaygroundPage.currentPage.captureValue(value, withIdentifier: title)
+    }
+}
+
 let count = 64
 let frequency = 4.0
 let amplitude = 3.0
 
-let x = (0..<count).map{ 2.0 * Double.pi / Double(count) * Double($0) * frequency }
+let x = (0..<count).map{ 2.0 * M_PI / Double(count) * Double($0) * frequency }
 
-for value in sin(x) {
-    value
-}
+plot(sin(x), title:"Sine Wave")
+plot(fft(sin(x)), title:"FFT")
 
-for value in fft(sin(x)) {
-    value
-}
